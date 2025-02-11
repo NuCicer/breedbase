@@ -1,0 +1,23 @@
+=== reset db 
+
+if everything else fails, connect to the docker:
+docker exec -it breedbase_web bash
+
+enter the database:
+psql -h breedbase_db -U postgres
+
+in the database, add the web_usr user and create the database:
+create role web_usr with password 'postgres';
+alter role web_usr with login;
+create database breedbase;
+\q
+
+then, load the database with the db dump:
+cat t/data/fixture/empty_fixture.sql | psql -h breedbase_db -U postgres breedbase
+
+run the dbpatches:
+cd db;
+perl run_all_patches.pl -u postgres -p postgres -h breedbase_db -d breedbase -e admin -s 80
+
+exit
+

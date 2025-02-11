@@ -1,6 +1,6 @@
 .env
 sgn_local.conf
-
+.DS_Store
 !Build/
 .last_cover_stats
 /META.yml
